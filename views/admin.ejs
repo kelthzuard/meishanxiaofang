@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>admin</title>
+<!-- import Vue.js -->
+<script src="//vuejs.org/js/vue.min.js"></script>
+<!-- import stylesheet -->
+<link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css">
+<!-- import iView -->
+<script src="//unpkg.com/iview/dist/iview.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/stylesheets/admin.css" />
+</head>
+</html>
+<body>
+<div id="app">
+  <div class="layout">
+      <Layout style="height: 100%">
+          <Header>
+              <i-menu mode="horizontal" theme="dark">
+                  <div class='headerTitle'>眉山消防定位系统</div>
+                  <div class="layout-nav">
+                  </div>
+              </i-menu>
+          </Header>
+          <Layout>
+              <Sider hide-trigger :style="{background: '#fff'}">
+                  <i-menu theme="light" width="auto" :open-names="['1']" :active-name="currentItem" @on-select="changeItem">
+                      <Submenu name="1">
+                          <template slot="title">
+                              报警人员列表
+                          </template>
+                          <div v-for="(item,index) in numberList" :key="index">
+                            <Menu-Item :name="index">{{item.number}}</Menu-Item>
+                          </div>
+                      </Submenu>
+                  </i-menu>
+              </Sider>
+              <Layout>
+                  <div id="container" style="width: 100%;height: 100%"></div>
+              </Layout>
+          </Layout>
+      </Layout>
+  </div>
+</div>
+<script>
+  import Vue from 'vue'
+  new Vue({
+      el: '#app',
+      data: {
+        currentItem: 0,
+        numberList: [{
+          number: '18380266573',
+          data: ''
+        },{
+          number: '18380266573',
+          data: ''
+        },{
+          number: '18380266573',
+          data: ''
+        }]
+      },
+      methods: {
+        changeItem: function(index) {
+          
+        }
+      }
+  })
+</script>
+</body>

@@ -1,0 +1,26 @@
+{
+  "name": "myapp",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "@alicloud/pop-core": "^1.7.6",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "express-session": "^1.15.6",
+    "http-errors": "~1.6.2",
+    "mongoose": "^5.4.15",
+    "morgan": "~1.9.0",
+    "socket.io": "^2.2.0",
+    "vue": "^2.6.6",
+    "vue-cli": "^2.9.6",
+    "webpack": "^4.29.4",
+    "webpack-cli": "^3.2.3"
+  }
+}

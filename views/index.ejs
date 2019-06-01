@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+<title></title>
+<style>
+    html,body{
+        height: 100%;
+    }
+</style>
+</head>
+<body>
+<div id='container' style="width: 100%;height: 100%"></div>
+
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.12&key=63fee5a68c8f4b38999df7d5e23fea4a"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+<script src="/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    var map = new AMap.Map('container', {
+        resizeEnable: true,
+        zoom:11,
+        center: [116.397428, 39.90923]
+    });
+
+    var socket = io('http://120.78.79.229:3000');
+
+    // socket.emmit()用户客户端向服务端发送消息，服务端与之对应的是socket.on()来接收信息。
+    socket.emit('client message', {msg:'hi, server'});
+
+    // socket.on()用于接收服务端发来的消息
+    socket.on('connect',  function(){
+    console.log('client connect server');
+    });
+    socket.on('disconnect', function(){
+    console.log('client disconnect');
+    });
+    socket.on('map', function(msg){
+        drawMaker(msg);
+    });
+    function drawMaker(message) {
+        var data = JSON.parse(message.msg);
+        var postion = [];
+        postion[1] = data.position.Q;
+        postion[0] = data.position.R;
+        var marker = new AMap.Marker({
+            icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+            position: postion
+        });
+        map.add(marker);
+        map.setFitView();
+        console.log(data);
+    }
+
+
+    AMap.plugin('AMap.Geolocation', function() {
+        var geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：5s
+            buttonPosition:'RB',    //定位按钮的停靠位置
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
+
+        });
+        geolocation.getCurrentPosition(function(status,result){
+            if(status=='complete'){
+                onComplete(result);
+            }else{
+                onError(result);
+            }
+        });
+    });
+    //解析定位结果
+    function onComplete(data) {
+        sendRequest(data)
+    }
+    //解析定位错误信息
+    function onError(data) {
+        document.getElementById('container').innerHTML=data.message;
+    }
+    function sendRequest (data) {
+        $.ajax({
+            type: 'POST',
+            url: 'http://120.78.79.229:3000',
+            data: {
+                'data': JSON.stringify(data)
+            },
+            success: function(mes){
+                console.log('success');
+            },
+            error: function(msg){
+                console.log('error');
+            },
+            dataType: 'json'
+        });
+    }
+});
+    
+</script>
+</body>
+</html>
