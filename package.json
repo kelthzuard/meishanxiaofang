@@ -17,7 +17,7 @@
     "http-errors": "~1.6.2",
     "mongoose": "^5.4.15",
     "morgan": "~1.9.0",
-    "socket.io": "^2.2.0",
+    "socket.io": "^2.4.0",
     "vue": "^2.6.6",
     "vue-cli": "^2.9.6",
     "webpack": "^4.29.4",
