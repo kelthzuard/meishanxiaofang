@@ -29,9 +29,9 @@ router.post('/', function(req, res, next) {
       }else{
         util.sendMsg(req.body.data.phoneNumber, doc.secretNumber, function(result) {
           res.status(200).send('success');
-          console.log(result);
+         console.log(result);
         }, function (ex) {
-          res.status(404).send('fail send msg');
+         res.status(404).send('fail send msg');
           console.log(ex);
         })
       }

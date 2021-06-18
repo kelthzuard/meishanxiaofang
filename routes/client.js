@@ -22,6 +22,7 @@ router.post('/', function(req, res, next) {
             if(err) {
                 res.status(404).send('cant find')
             }else {
+                console.log(doc)
                 socketUse.socketEvent.emit('location', doc)
                 res.status(200).send('ok');
             }

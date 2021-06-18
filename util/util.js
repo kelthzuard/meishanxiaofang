@@ -2,17 +2,19 @@ const Core = require('@alicloud/pop-core');
 
 exports.sendMsg = function(phoneNumber, secretNumber, user, success, failed) {
   var client = new Core({
+    accessKeyId: 'LTAI5tKmBPrCyfjDDRAgBLgN',
+    accessKeySecret: 'OdiYwKkBF6AknQbEbD44IIh9h8XP31',
     endpoint: 'https://dysmsapi.aliyuncs.com',
     apiVersion: '2017-05-25'
   });
   var TemplateParam = {
-    url: `${secretNumber}/${user}`
+    url: `${secretNumber}`
   }
   var params = {
     "RegionId": "cn-hangzhou",
     "PhoneNumbers": phoneNumber,
     "SignName": "firelocater",
-    "TemplateCode": "SMS_162737921",
+    "TemplateCode": "SMS_218276809",
     "TemplateParam": JSON.stringify(TemplateParam)
   }
   
@@ -23,6 +25,7 @@ exports.sendMsg = function(phoneNumber, secretNumber, user, success, failed) {
   client.request('SendSms', params, requestOption).then((result) => {
     success(result)
   }, (ex) => {
+    console.log(ex)
     failed(ex)
   })
 };

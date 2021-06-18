@@ -13,6 +13,7 @@ const socketOn = (server) => {
     timeout: 15000 // 15 seconds to send the authentication message
   }))
   .on('authenticated', function(socket) {
+    console.log(mapping)
     mapping.set(socket.decoded_token.name, socket.id)
   })
   .on('disconnect', function(socket) {
