@@ -1,14 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var model = require('../common/model');
+var socketUse = require('../util/socketUse')
 
 router.post('/', function(req, res, next) {
-  var phoneNumber = req.query.number;
+  var phoneNumber = req.body.number;
+  console.log(phoneNumber)
   var phone = model.phone;
-  var location = JSON.stringify(req.body.data)
-  console.log(req.body.data);
+  var location = JSON.stringify(req.body.result)
   phone.update({
-    secretNumber: phoneNumber
+    phoneNumber: phoneNumber
   }, {$set: {
     location: location
   }}, function(err, doc) {
@@ -16,14 +17,12 @@ router.post('/', function(req, res, next) {
         res.sendStatus(500);
     }else {
         phone.findOne({
-            secretNumber: phoneNumber
+            phoneNumber: phoneNumber
         }, function(err, doc) {
             if(err) {
                 res.status(404).send('cant find')
             }else {
-                global.io.emit('map', {
-                    msg: doc
-                });
+                socketUse.socketEvent.emit('location', doc)
                 res.status(200).send('ok');
             }
         });

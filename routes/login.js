@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var model = require('../common/model');
 var crypto = require('crypto');
+var token = require('../util/token')
 
 router.post('/', function(req, res, next) {
   var user = model.user;
@@ -15,9 +16,12 @@ router.post('/', function(req, res, next) {
     if (!doc) {
       res.status(404).send('not correct');
     }else {
-      req.session.islog = 1;
-      console.log(req.session);
-      res.status(200).send('success login');
+      token.setToken(doc.userName)
+      .then(token => {
+        res.header("Access-Control-Expose-Headers","Authorization");
+        res.header('authorization', token)
+        res.status(200).send('success login');
+      })
     }
   })
 });

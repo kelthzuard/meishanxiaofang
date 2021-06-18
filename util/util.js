@@ -1,12 +1,12 @@
 const Core = require('@alicloud/pop-core');
 
-exports.sendMsg = function(phoneNumber, secretNumber, success, failed) {
+exports.sendMsg = function(phoneNumber, secretNumber, user, success, failed) {
   var client = new Core({
     endpoint: 'https://dysmsapi.aliyuncs.com',
     apiVersion: '2017-05-25'
   });
   var TemplateParam = {
-    url: secretNumber
+    url: `${secretNumber}/${user}`
   }
   var params = {
     "RegionId": "cn-hangzhou",

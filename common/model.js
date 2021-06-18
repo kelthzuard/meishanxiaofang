@@ -4,7 +4,8 @@ var phoneSchema = mongoose.Schema({
     phoneNumber: { type: String,required: true },
     secretNumber: { type: String,required: true },
     desc: { type: String },
-    location: { type: String,required: true}
+    location: { type: String,required: true },
+    user: { type: String, required: true }
 });
 
 var userSchema = mongoose.Schema({

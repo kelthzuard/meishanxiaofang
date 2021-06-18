@@ -10,10 +10,10 @@ var http = require('http');
 var https = require('https');
 var fs = require("fs");
 var path = require('path');
-const httpsOption = {
-  key : fs.readFileSync(path.join(__dirname, "./https/2026157_firelocater.top.key")),
-  cert: fs.readFileSync(path.join(__dirname, "./https/2026157_firelocater.top.pem"))
-};
+// const httpsOption = {
+//   key : fs.readFileSync(path.join(__dirname, "./https/2026157_firelocater.top.key")),
+//   cert: fs.readFileSync(path.join(__dirname, "./https/2026157_firelocater.top.pem"))
+// };
 
 
 /**
@@ -27,15 +27,15 @@ var port = normalizePort(process.env.PORT || '443');
  * Create HTTP server.
  */
 
-var server = https.createServer(httpsOption, app);
-app.ready(server);
+//var server = https.createServer(httpsOption, app);
+//app.ready(server);
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(443);
-server.on('error', onError);
-server.on('listening', onListening);
+// server.listen(443);
+// server.on('error', onError);
+// server.on('listening', onListening);
 
 var httpserver = http.createServer(app);
 httpserver.listen(3000);
